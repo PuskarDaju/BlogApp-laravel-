@@ -85,20 +85,29 @@ class ConnectionController extends Controller
             return 1;
         }
     }
-    public function deleteMyPost(Request $request){
-        $post12 = post::find(id: $request->id);
-        if($post12){
+    public function deleteMyPost(Request $request) {
+        $post12 = Post::find($request->id); // Correcting the parameter syntax for find() method
+    
+        if ($post12) {
+            // Path to the image
+            $imagePath = public_path('storage/profiles/' . $post12->profile_photo_path);
+    
+            // Check if the image exists and then delete it
+            if (file_exists($imagePath)) {
+                unlink($imagePath); // Remove the image file
+            }
+    
+            // Delete the post from the database
             $post12->delete();
+    
             return redirect()->route('dashboard');
-            
-        }else{
+        } else {
             return response()->json([
-                'message'=>"Post cannot be deleted"
+                'message' => "Post cannot be deleted"
             ]);
         }
-    
-    
     }
+    
     public function editMyPost(Request $req){
         $post=post::find(id: $req->id);
         if(!empty($post)){

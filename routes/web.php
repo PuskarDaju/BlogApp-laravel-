@@ -40,7 +40,7 @@ Route::middleware(areYouUser::class)->group(function(){
             Route::post('deleteRequest','deleteRequest')->name('deletefriendRequest');
             Route::post('acceptRequest',action: 'acceptRequest')->name('acceptfriendRequest');
             Route::get('editPost','editMyPost')->name('posts.edit');
-            Route::delete('deletePost','deleteMyPost')->name('posts.destroy');
+            Route::delete('deletePost',action: 'deleteMyPost')->name('posts.destroy');
             Route::post('updateMyPost',"updatePost")->name('updateMyPost');
             
             
